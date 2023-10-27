@@ -1,19 +1,28 @@
 ﻿using System;
 using UnityEngine;
+using ZFramework.IO;
+
 namespace JH_ECS
 {
     public class EcsStartPoint:MonoBehaviour
     {
-        private SystemsController _systemsController;
         private void Start()
         {
-            EcsManager.CreateWorld("NewEcsWorld");
+            var gameobjects = GameObject.FindObjectsOfType<EntityBehaviour>();
+            foreach (var entityBehaviour in gameobjects)
+            {
+                Destroy(entityBehaviour.gameObject);
+            }
+            EcsManager.CurrentWorld.OnPlayMode(); 
         }
+
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-            }
+        }
+
+        private void OnApplicationQuit()
+        {
+          //  EcsManager.CurrentWorld.OnQuitMode();
         }
     }
 }

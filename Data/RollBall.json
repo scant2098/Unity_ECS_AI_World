@@ -1,0 +1,17 @@
+{
+  "StorageUnits": [
+    {
+      "Id": "E002",
+      "PositionComponent": {
+        "position": {
+          "x": -1.45914149,
+          "y": 1.0,
+          "z": -0.7782019
+        }
+      },
+      "MoveComponent": "NullData",
+      "PlayerControllerComponent": "NullData"
+    }
+  ],
+  "WorldName": "RollBall"
+}

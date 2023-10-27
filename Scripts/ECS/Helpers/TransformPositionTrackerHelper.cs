@@ -7,13 +7,13 @@ namespace JH_ECS
 {
     public class TransformPositionTrackerHelper
     {
-        private static Dictionary<Transform, Vector3> lastPositions = new Dictionary<Transform, Vector3>();
+        private static Dictionary<Transform, EVector3> lastPositions = new Dictionary<Transform, EVector3>();
 
         public static void TrackTransform(Transform transform)
         {
             if (!lastPositions.ContainsKey(transform))
             {
-                lastPositions[transform] = transform.position;
+              //  lastPositions[transform] = transform.position;
             }
         }
         /*

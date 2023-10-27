@@ -13,9 +13,16 @@ namespace JH_ECS
         }
         public void OnInit()
         {
-            
+            BindComponentType = typeof(InputComponent);
         }
 
+        public void OnEntityAdd(Entity entity)
+        {
+            
+        }
+        public void OnEntityRemove(){}
+
         public int Priority { get; set; }
+        public Type BindComponentType { get; set; }
     }
 }

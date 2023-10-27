@@ -7,7 +7,7 @@ using UnityEngine;
 public class EntityCustomEditor : Editor
 {
     private int selectedComponentIndex = 0; // 用户选择的组件索引
-    private bool showComponents = false;
+    private bool showComponents = true;
     private string searchKeyword="";
 
     public override void OnInspectorGUI()
@@ -20,7 +20,10 @@ public class EntityCustomEditor : Editor
             GUI.backgroundColor = Color.red; // 设置按钮的背景颜色为红色
             if (GUILayout.Button("Destory Entity"))
             {
-              targetScript.DestroySelf();
+                EcsManager.CurrentWorld.RemoveStorageUnit(targetScript.Entity._entityID);
+                EcsManager.CurrentWorld.StorageData();
+                AssetDatabase.Refresh();
+                targetScript.DestroySelf();
             }
             GUI.backgroundColor = Color.white; // 恢复背景颜色为白色
             // 显示Components列表
@@ -30,11 +33,12 @@ public class EntityCustomEditor : Editor
             EditorGUILayout.EndHorizontal();
             if (showComponents)
             {
-                for (int i = 0; i < targetScript.Components.Count; i++)
+                for (int i = 0; i < targetScript.Entity._components.Count; i++)
                 {
-                    var component = targetScript.Components[i];
-                    // 获取实现了IComponent接口的对象的类型名称
-                    string componentName = component.GetType().Name;
+                    var componentType = targetScript.Entity._components.Keys.ToList()[i]; // 获取类型
+                    var component = targetScript.Entity._components[componentType];
+
+                    string componentName = componentType.Name;
 
                     EditorGUILayout.BeginHorizontal();
 
@@ -46,12 +50,15 @@ public class EntityCustomEditor : Editor
                     // 添加Remove按钮
                     if (GUILayout.Button("Remove", GUILayout.Width(80)))
                     {
-                        targetScript.Entity._components.Remove(targetScript.Components[i].GetType());
+                        targetScript.Entity.CreateStorageUnit();
+                        EcsManager.CurrentWorld.StorageData();
+                        targetScript.Entity.RemoveComponent(component);
                         i--; // 减少i以处理下一个元素
                     }
 
                     EditorGUILayout.EndHorizontal();
                 }
+
             }
             // 添加一个下拉框来选择要添加的组件
             EditorGUILayout.BeginHorizontal();
@@ -59,6 +66,10 @@ public class EntityCustomEditor : Editor
             if (GUILayout.Button("Add Component"))
             {
                 targetScript.Entity.AddComponent(ComponentController.GetAllComponents()[selectedComponentIndex]);
+                targetScript.Entity.CreateStorageUnit();
+                EcsManager.CurrentWorld.StorageData();
+                AssetDatabase.Refresh();
+                showComponents = true;
             }
             EditorGUILayout.EndHorizontal();
         }

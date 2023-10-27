@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Profiling;
 
 namespace JH_ECS
@@ -65,6 +66,11 @@ namespace JH_ECS
             },typeof(UnityRigidBodyComponent),typeof(UnityColliderComponent));   */
         }
 
+        public void OnEntityAdd(Entity entity)
+        {
+            throw new System.NotImplementedException();
+        }
         public int Priority { get; set; }
+        public Type BindComponentType { get; set; }
     }
 }

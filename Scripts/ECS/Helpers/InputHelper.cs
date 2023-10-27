@@ -33,5 +33,10 @@ namespace JH_ECS
             }
             Profiler.EndSample();
         }
+
+        public static bool GetKey(KeyCode keyCode)
+        {
+            return keyPresseds.Contains(keyCode);
+        }
     }
 }

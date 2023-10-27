@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: ScriptTemplate
+  m_EditorClassIdentifier: Assembly-CSharp-Editor:JH_ECS:ScriptTemplate
+  scriptContent: "using System;\r\nnamespace JH_ECS\r\n{\r\n    public class TemplateSystem
+    : ISystem\r\n    {\r\n        /// On this System is Running every frame execute
+    this\r\n        public void OnUpdate()\r\n        {\r\n        }\r\n        //On
+    one Entity first add the component which bind by this system \r\n        public
+    void OnInit()\r\n        {\r\n        }\r\n        //On one Entity first add
+    the component\r\n        public void OnEntityAdd(Entity entity)\r\n        {\r\n       
+    }\r\n        public int Priority { get; set; }\r\n        public Type BindComponentType\r\n       
+    {\r\n            get { return typeof(TemplateSystem); }\r\n        }\r\n    }\r\n}\r\n\r\n"

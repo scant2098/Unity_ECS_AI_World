@@ -14,7 +14,6 @@ namespace ZFramework
         {
             if(isDisposed) return;
             Type messageType = typeof(T);
-            MessageBroker.Default.Receive<MessageBox>().Subscribe(_ => { });
             lock (notifiers)
             {
                 if (notifiers.TryGetValue(messageType, out List<Action<object>> callbacks))

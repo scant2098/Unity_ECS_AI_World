@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Profiling;
 
 namespace JH_ECS
@@ -26,6 +27,11 @@ namespace JH_ECS
             });*/
         }
 
+        public void OnEntityAdd(Entity entity)
+        {
+            
+        }
         public int Priority { get; set; }
+        public Type BindComponentType { get; }
     }
 }

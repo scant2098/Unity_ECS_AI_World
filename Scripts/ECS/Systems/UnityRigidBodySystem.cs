@@ -1,36 +1,41 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+using System;
 using UnityEngine;
 
 namespace JH_ECS
 {
-    public class UnityRigidBodySystem:ISystem
+    public class UnityRigidBodySystem : ISystem
     {
+        /// On this System is Running every frame execute this
         public void OnUpdate()
         {
-            /*SystemsController.UpdateEntities<UnityRigidBodyComponent>(enity =>
-            {
-                UnityRigidBodyComponent rigidBodyComponent = enity.GetComponent<UnityRigidBodyComponent>();
-                if(enity.GetComponent<UnityRigidBodyComponent>().rigidbody!=null) return;
-                enity.GetComponent<UnityGameObjectComponent>().gameObject.AddComponent<Rigidbody>();
-                rigidBodyComponent.rigidbody =
-                    enity.GetComponent<UnityGameObjectComponent>().gameObject.GetComponent<Rigidbody>();
-                rigidBodyComponent.rigidbody.useGravity = false;
-            });*/
-            /*SystemsController.UpdateEntitiesNotHasComponent(enity =>
-            {
-                if (enity.GetComponent<UnityGameObjectComponent>().gameObject.GetComponent<Rigidbody>())
-                {
-                    MonoBehaviour.Destroy(enity.GetComponent<UnityGameObjectComponent>().gameObject.GetComponent<Rigidbody>());
-                }
-            },typeof(UnityRigidBodyComponent),typeof(UnityGameObjectComponent));*/
         }
-
+        //On one Entity first add the component which bind by this system 
         public void OnInit()
         {
-            
+        }
+        //On one Entity first add the component
+        public void OnEntityAdd(Entity entity)
+        {
+           var rigidbody= entity.gameObject.AddComponent<Rigidbody>();
+           entity.UpdateComponent(new UnityRigidBodyComponent{Rigidbody = rigidbody});
         }
 
+        public void OnEntityRemove(Entity entity)
+        {
+            MonoBehaviour.Destroy(entity.gameObject.GetComponent<Rigidbody>());
+        }
+        public void OnSystemDisable()
+        {
+        }
+
+        public void OnSystemEnable()
+        {
+        }
         public int Priority { get; set; }
+        public Type BindComponentType
+        {
+            get { return typeof(UnityRigidBodyComponent); }
+        }
     }
 }
+
